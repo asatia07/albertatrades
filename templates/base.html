@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'indeed/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'indeed/css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'indeed/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'indeed/css/jquery.dataTables.min.css' %}">
+    <head>
+      <title>{% block head_title %}{% endblock %}</title>
+      {% block extra_head %}
+      {% endblock %}
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-18028986-5', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    </head>
+    <body>
+      <header>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2">
+              <a href="http://albertatrades.com/#" style="line-height: 60px; color: rgb(255, 255, 255); font-size: 25px;">AlbertaTrades.com</a>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-6">
+              <form action="{%url 'search'%}" class="form-inline" role="form" style="float: left; line-height: 54px;">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="query" name="query" placeholder="Trade" value="{% if query %}{{query}}{%endif%}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Location" value="{% if location %}{{location}}{%endif%}">
+                </div>
+                <button type="submit" class="btn btn-default"> Search </button>
+              </form>
+              {% if user.is_authenticated %}
+                <div class="user-settings-wrapper">
+                  <ul class="nav">
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
+                      </a>
+                      <div class="dropdown-menu dropdown-settings">
+                        <div style="color: rgb(51, 51, 51);">Welcome, atul</div>
+                        <hr style="border-color: rgb(51, 51, 51);">
+                        <a href="#" class="btn btn-info btn-sm">Full Profile</a>&nbsp;<a href="{% url 'account_logout' %}" class="btn btn-danger btn-sm">Logout</a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              {% else %}
+                <a href="{% url 'account_signup' %}">
+                  <i class="fa fa-user-plus login-icon" ></i>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </header>
+      <section class="menu-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="navbar-collapse collapse ">
+                <ul id="menu-top" class="nav navbar-nav navbar-right">
+                  <li><a class="menu-top-active" href="#">Dashboard</a></li>
+                  {% if not user.is_authenticated %}
+                    <li><a href="{% url 'account_login' %}">Login Page</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- MENU SECTION END-->
+      <div class="content-wrapper">
+        {% block body %}
+          {% if messages %}
+            <div class="container">
+              <div class="row-fluid">
+                {% for message in messages %}
+                  <div class="col-md-12 alert alert-{{message.level_tag}}">{{message}}</div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+          
+          {% block content %}
+          {% endblock %}
+
+        {% endblock %}
+        
+        {% block extra_body %}
+        {% endblock %}
+      </div>
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              &copy; 2015 YourCompany :
+              {%if indeed_logo %}
+                |		
+                <span id=indeed_at>
+                    <a href="http://www.indeed.com/">
+                        jobs
+                    </a> by 
+                    <a href="http://www.indeed.com/" title="Job Search">
+                        <img src="http://www.indeed.com/p/jobsearch.gif" style="border: 0; vertical-align: middle;" alt="Indeed job search">
+                    </a>
+                </span> 
+              {%endif%}		
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- CORE JQUERY SCRIPTS -->
+      <script src="{% static 'indeed/js/jquery-1.11.1.js' %}"></script>
+      <script src="{% static 'indeed/js/script.js' %}"></script>
+      <!-- BOOTSTRAP SCRIPTS  -->
+      <script src="{% static 'indeed/js/bootstrap.js' %}"></script>
+      <script src="{% static 'indeed/js/jquery.dataTables.min.js' %}"></script>
+      {% block extra_js %}
+      {% endblock %}
+  </body>
+</html>

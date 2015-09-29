@@ -1,0 +1,56 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="page-head-line">{% trans "Signup" %}</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+        <br /><hr />
+        <form class="signup" method="POST" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+          <label for="id_username">Username:</label>
+          <input type="text" placeholder="Username" name="username" maxlength="30" id="id_username" class="form-control" value="{% if form.username.value %}{{form.username.value}}{% else %}{% endif %}">
+          {% if not form.is_valid and form.errors.username.as_text %}
+            <div class="alert alert-danger">{{form.errors.username.as_text}}</div>
+          {% endif %}
+          <label for="id_email">E-mail:</label>
+          <input type="email" placeholder="E-mail address" name="email" id="id_email"  class="form-control" value="{% if form.email.value %}{{form.email.value}}{% else %}{% endif %}">
+          {% if not form.is_valid and form.errors.email.as_text %}
+            <div class="alert alert-danger">{{form.errors.email.as_text}}</div>
+          {% endif %}
+          <label for="id_password1">Password:</label>
+          <input type="password" placeholder="Password" name="password1" id="id_password1" class="form-control" value="{{form.password1.value}}">
+          {% if not form.is_valid and form.errors.password1.as_text %}
+            <div class="alert alert-danger">{{form.errors.password1.as_text}}</div>
+          {% endif %}
+          <label for="id_password2">Password (again):</label>
+          <input type="password" placeholder="Password (again)" name="password2" id="id_password2" class="form-control" value="{{form.password2.value}}">
+          {% if not form.is_valid and form.errors.password2.as_text %}
+            <div class="alert alert-danger">{{form.errors.password2.as_text}}</div>
+          {% endif %}
+          {% if not form.is_valid and form.non_field_errors.as_text %}
+            <div class="alert alert-danger">{{form.non_field_errors.as_text}}</div>
+          {% endif %}
+          <input type="hidden" name="confirmation_key" maxlength="40" id="id_confirmation_key">
+          <hr />
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="btn btn-info" type="submit"><span class="glyphicon glyphicon-user"></span> &nbsp;{% trans "Sign Up" %} &raquo;</button>
+        </form>
+      </div>
+    <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+{% endblock %}
