@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 from lib import indeed_api
+from models import Trade
 
 def home(request):
     trades = Trade.objects.all()
