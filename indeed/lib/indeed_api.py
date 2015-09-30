@@ -3,7 +3,7 @@ import json
 import config
 import logging
 
-def fetch_jobs(params):
+def fetch_jobs(params, job_count=False):
     query = params.get('query')
     if not query:
         error_msg = "Error : query(trade) is mandatory!"
@@ -20,9 +20,22 @@ def fetch_jobs(params):
             'format': 'json',
             'q': query,
         }
+        trade_info = []
+        start = 0
+        while(True):
+            url = "%s%s&start=%s" %( config.INDEED_API_BASE_URL, urllib.urlencode(query_params), start)
+            response = urllib.urlopen(url)
+            result = json.load(response)
+            if job_count:
+                trade_info = result
+                break
 
-        response = urllib.urlopen( "%s%s" %(config.INDEED_API_BASE_URL, urllib.urlencode(query_params)) )
-        response = {"error": False, "trade_info": json.load(response)}
+            trade_info.extend(result["results"])
+            start = result["end"]
+            if start == result["totalResults"]:
+                break
+
+        response = {"error": False, "trade_info": trade_info}
     except:
         error_msg = "Error in fetching data for query = %s" %query
         response = {"error": True, "message": error_msg}

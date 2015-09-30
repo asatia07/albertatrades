@@ -6,7 +6,7 @@ def update_trades(request):
     trades = models.Trade.objects.all()
     for trade in trades:
         params = {'query': trade.query}
-        response = lib.indeed_api.fetch_jobs(params)
+        response = lib.indeed_api.fetch_jobs(params, job_count=True)
         if response["error"]:
             print response["message"]
         else:

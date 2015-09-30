@@ -18,8 +18,7 @@ def search(request):
         if response["error"]:
             print response["message"]
         else:
-            results = response["trade_info"]["results"]
-            for row in response["trade_info"]["results"]:
+            for row in response["trade_info"]:
                 jobs.append(
                                 {
                                     "title": row["jobtitle"],
