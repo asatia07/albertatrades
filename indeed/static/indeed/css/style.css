@@ -24,9 +24,9 @@ body {
 .page-head-line {
     font-weight: 900;
     padding-bottom: 20px;
-    border-bottom: 2px solid #F0677C;
+    border-bottom: 2px solid #A8A4A0;
     text-transform: uppercase;
-    color: #F0677C;
+    color: #000;
     font-size: 20px;
     margin-bottom: 40px;
 }
@@ -53,7 +53,7 @@ font-size: 30px;
 color: #fff;
 text-align: center;
 cursor:pointer;
-background-color:#F0677C;
+background-color:#A8A4A0;
 -webkit-border-radius:50%;
     -moz-border-radius:50%;
 }
@@ -61,7 +61,7 @@ background-color:#F0677C;
    HEADER SECTION STYLES
  ============================================================ */
 header {
-    background-color: #F0677C;
+    background-color: #A8A4A0;
     color: #fff;
     padding: 10px;
     text-align: right;
@@ -92,7 +92,7 @@ header {
     -moz-border-radius: 50%;
     height: 60px;
     width: 60px;
-    background-color: #F0677C;
+    background-color: #A8A4A0;
     color: #fff;
 }
 
@@ -113,7 +113,7 @@ header {
 
     .user-settings-wrapper .nav > li > a:hover,.user-settings-wrapper .nav > li > a:focus {
         text-decoration: none;
-        background-color: #C36464!important;
+        background-color: #625E5A!important;
     }
 
     .user-settings-wrapper img {
@@ -142,11 +142,11 @@ header {
 /* MENU LINKS SECTION*/
 
 .menu-section {
-    background-color: #3D3D3D;
+    background-color: #A8A4A0;
 }
 
 #menu-top a {
-    color: #FFF;
+    color: #000;
     text-decoration: none;
     font-weight: 500;
     padding: 10px 10px 10px 10px;
@@ -154,24 +154,24 @@ header {
 }
 
 .menu-top-active {
-    background-color: #C36464;
+    background-color: #A8A4A0;
 }
 
 .menu-section .nav > li > a:hover,.menu-section .nav > li > a:focus {
-    background-color: #F0677C!important;
+    background-color: #625E5A!important;
 }
 
 .menu-section .dropdown-menu > li > a:hover,.menu-section .dropdown-menu > li > a:focus {
-    background-color: #F0677C!important;
+    background-color: #625E5A!important;
 }
 
 .navbar-inverse {
-    background-color: #C36464;
+    background-color: #625E5A;
     border-color: transparent;
 }
 
 .navbar-toggle {
-    background-color: #F0677C;
+    background-color: #625E5A;
     border: 1px solid #fff;
 }
 
@@ -183,15 +183,15 @@ header {
  ============================================================ */
 footer {
     padding: 10px;
-    color: #fff;
+    color: #000;
     font-size: 12px;
-    background-color: #C36464;
+    background-color: #A8A4A0;
 }
 
-    footer a, footer a:hover {
-        color: #fff;
-        text-decoration: none;
-    }
+footer a, footer a:hover {
+    color: #000;
+    text-decoration: none;
+}
 
 /*==============================================
     DASHBOARD  STYLES    
@@ -296,4 +296,8 @@ footer {
 
 .btn-google {
     background-color: #c32f10;
+}
+
+table.dataTable tbody th, table.dataTable tbody td{
+    padding: 2px 10px !important;
 }

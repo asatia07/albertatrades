@@ -32,7 +32,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-2">
-              <a href="http://albertatrades.com/#" style="line-height: 60px; color: rgb(255, 255, 255); font-size: 25px;">AlbertaTrades.com</a>
+              <a href="{% url 'home' %}" style="line-height: 60px; color: rgb(0, 0, 0); font-size: 25px;">AlbertaTrades.com</a>
             </div>
             <div class="col-md-4">
             </div>
@@ -78,7 +78,7 @@
                 <ul id="menu-top" class="nav navbar-nav navbar-right">
                   <li><a class="menu-top-active" href="#">Dashboard</a></li>
                   {% if not user.is_authenticated %}
-                    <li><a href="{% url 'account_login' %}">Login Page</a></li>
+                    <li><a href="{% url 'account_login' %}">Login</a></li>
                   {% endif %}
                 </ul>
               </div>
@@ -111,7 +111,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              &copy; 2015 YourCompany :
+              <a href="http://vanbit.io/" target="_blank">vanbit.io</a>
               {%if indeed_logo %}
                 |		
                 <span id=indeed_at>
