@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.linkedin_oauth2',
+    'django_cron',
 )
 
 SITE_ID = 1
@@ -161,3 +162,42 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_LOGOUT_ON_GET = True
 LOGIN_URL = "account_login"
+
+
+CRON_CLASSES = [
+    "indeed.cron.UpdateTradesJob",
+]
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'alberta.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['file'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'indeed': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    }
+}

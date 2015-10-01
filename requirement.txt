@@ -4,4 +4,4 @@ distribute==0.6.24
 wsgiref==0.1.2
 mysql-python
 django-allauth
-
+django_cron
