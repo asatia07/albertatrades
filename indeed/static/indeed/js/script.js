@@ -5,8 +5,10 @@ jQuery(document).ready(function() {
       { "sWidth": "58%" }, // 1st column width 
       { "sWidth": "10%" }, // 2nd column width 
       { "sWidth": "20%" }, // 3rd column width 
-      { "sWidth": "10%", "type": "natural" } // 4th column width
+      //{ "sWidth": "10%", "type": "natural" } // "type": "natural" : had to be removed to apply custom sorting 'age-custom-sort' on age column
+      { "sWidth": "10%" } // 4th column width
     ],
-    "order": [[ 3, "asc" ]]
+    "order": [[ 3, "asc" ]],
+    "columnDefs": [ { "type": "age-custom-sort", targets: 3 }]
   });
 });

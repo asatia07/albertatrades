@@ -54,7 +54,7 @@
                         <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
                       </a>
                       <div class="dropdown-menu dropdown-settings">
-                        <div style="color: rgb(51, 51, 51);">Welcome, atul</div>
+                        <div style="color: rgb(51, 51, 51);">Welcome, {{user.first_name}}</div>
                         <hr style="border-color: rgb(51, 51, 51);">
                         <a href="#" class="btn btn-info btn-sm">Full Profile</a>&nbsp;<a href="{% url 'account_logout' %}" class="btn btn-danger btn-sm">Logout</a>
                       </div>
@@ -133,6 +133,7 @@
       <!-- BOOTSTRAP SCRIPTS  -->
       <script src="{% static 'indeed/js/bootstrap.js' %}"></script>
       <script src="{% static 'indeed/js/jquery.dataTables.min.js' %}"></script>
+      <script src="{% static 'indeed/js/custom_plugin.js' %}"></script>
       {% block extra_js %}
       {% endblock %}
   </body>
