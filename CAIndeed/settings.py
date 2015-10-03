@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.linkedin_oauth2',
+    'allauth.socialaccount.providers.google',
     'django_cron',
 )
 
@@ -145,7 +146,17 @@ SOCIALACCOUNT_PROVIDERS =   {'linkedin_oauth2':
                                                             'picture-url',
                                                             'public-profile-url'
                                                         ]
-                                }
+                                },
+                                'google':
+                                    {
+                                        'PROFILE_FIELDS':   ['id',
+                                                                'first-name',
+                                                                'last-name',
+                                                                'email-address',
+                                                                'picture-url',
+                                                                'public-profile-url'
+                                                            ]
+                                    }
                             }
 
 SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"

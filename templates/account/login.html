@@ -14,14 +14,12 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h4> Login with linkedin <strong>:</h4>
-        <br />
         {% get_providers as socialaccount_providers %}
         {% for provider in socialaccount_providers %}
           <a title="{{provider.name}}" class="btn btn-social btn-{{provider.name|lower}} {{provider.id}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name|lower}}"></i>&nbsp;{{provider.name|capfirst}} Account</a>
         {% endfor %}
         <hr />
-        <h4> Or Login with <strong>Indeed Account  :</strong></h4>
+        <h4> Or Login with <strong>AlbertaTrades Account  :</strong></h4>
         <br />
         {% if not form.is_valid and form.non_field_errors.as_text %}
           <div class="alert alert-danger">{{form.non_field_errors.as_text}}</div>
