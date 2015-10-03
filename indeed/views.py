@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 from lib import indeed_api
 from models import Trade
+from models import SearchHistory
 
 def home(request):
     trades = Trade.objects.all()
@@ -11,6 +12,8 @@ def home(request):
 def search(request):
     location = request.GET.get('location')
     query = request.GET.get('query')
+    create_search_history(request, query)
+
     jobs = []
     if query:
         params = {'query': query, 'location': location}
@@ -34,4 +37,15 @@ def search(request):
                             )
     context = {"jobs":jobs, "query":query, "location":location, "indeed_logo":True}
     return render(request, 'indeed/search.html', context=context)
+
+def create_search_history(request, query):
+    try:
+        trade = Trade.objects.get(name=query)
+        if trade:
+          user = request.user
+          search_history = SearchHistory(user=user, trade=trade)
+          search_history.save()
+    except:
+        pass
+            
 
