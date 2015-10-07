@@ -6,25 +6,31 @@ from models import Trade
 from models import QuerySearchHistory
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.contrib import messages
+from .forms import FeedbackForm
 
 def home(request):
     trades = Trade.objects.all()
     return render(request, 'indeed/home.html', context={"trades":trades, "indeed_logo":True})
 
 def feedback(request):
-    context = {}
-    if request.POST:
-        feedback = request.POST.get('feedback')
-        if feedback:
-            name = request.POST.get('name')
-            email = request.POST.get('email')
-            email_data = {'email':email, 'name':name, 'feedback':feedback}
-            email_template = render_to_string('indeed/email/feedback.html', email_data)
-            to = 'test.info.alberta@maillinator.com' #'info@vanbit.io'
-            #TODO : send_email(to=to, subject="feedback", body=email_template)
-            context = {'error':0}
+    if request.method == 'GET':
+        form = FeedbackForm()
+    elif request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            email_data = {'email':form.cleaned_data['email'], 'name':form.cleaned_data['name'], 'feedback':form.cleaned_data['feedback']}
+            body = render_to_string('indeed/email/feedback.html', email_data)
+            mail_sent = send_mail('AlbertaTrades Feedback', body, 'donotreply@vanbit.io',['info@vanbit.io'], fail_silently=True, html_message = body)
+            if mail_sent:
+                messages.success(request, "Success! your feedback has been sent!")
+                return redirect(home)
+            else:
+                messages.error(request, "Something went wrong, feedback not sent!")
         else:
-            context = {'error':1}
+            print "INVALID FORM"
+            print form.errors
+    context = {"form":form}
     return render(request, 'indeed/feedback.html', context=context)
 
 def search(request):

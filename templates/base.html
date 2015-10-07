@@ -93,7 +93,7 @@
             <div class="container">
               <div class="row-fluid">
                 {% for message in messages %}
-                  <div class="col-md-12 alert alert-{{message.level_tag}}">{{message}}</div>
+                  <div class="col-md-12 alert {% if message.level_tag == 'error' %}alert-danger {% else %} alert-{{message.level_tag}} {% endif %}">{{message}}</div>
                 {% endfor %}
               </div>
             </div>
@@ -108,28 +108,20 @@
         {% endblock %}
       </div>
       <footer>
-        <div class="container">
+        <div class="container footer">
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
               <a href="http://vanbit.io/" target="_blank">vanbit.io</a>
-              {%if indeed_logo %}
-                |		
-                <span id=indeed_at>
-                    <a href="http://www.indeed.com/">
-                        jobs
-                    </a> by 
-                    <a href="http://www.indeed.com/" title="Job Search">
-                        <img src="http://www.indeed.com/p/jobsearch.gif" style="border: 0; vertical-align: middle;" alt="Indeed job search">
-                    </a>
-                </span> 
-              {%endif%}		
+              |		
+              <span id='indeed_at'>
+                <a href="http://www.indeed.com/" title="Job Search" target="_blank">
+                  jobs by 
+                  <img src="http://www.indeed.com/p/jobsearch.gif" style="border: 0; vertical-align: middle;" alt="Indeed job search">
+                </a>
+              </span>
+              |
+              <a href="{% url 'feedback' %}">Feedback</a>		
             </div>
-
-
-            <div class="col-md-3">
-              <a href="/feedback">Feedback</a>
-            </div>
-
           </div>
         </div>
       </footer>
