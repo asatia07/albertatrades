@@ -16,7 +16,7 @@ body {
 }
 
 .content-wrapper {
-    margin-top: 40px;
+    margin-top: 10px;
     min-height: 600px;
     padding-bottom: 60px;
 }
@@ -63,7 +63,7 @@ background-color:#A8A4A0;
 header {
     background-color: #A8A4A0;
     color: #fff;
-    padding: 10px;
+    padding: 2px 10px;
     text-align: right;
 }
 
