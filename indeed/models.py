@@ -1,7 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)  
+    search_query = models.CharField(default="", max_length=200)  
+    search_location = models.CharField(default="", max_length=200)  
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
 class Trade(models.Model):
     name = models.CharField(default="", max_length=200)

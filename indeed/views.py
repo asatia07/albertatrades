@@ -1,8 +1,9 @@
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 from lib import indeed_api
-from models import Trade
+from models import Trade, UserProfile
 from models import QuerySearchHistory
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -32,6 +33,16 @@ def feedback(request):
             print form.errors
     context = {"form":form}
     return render(request, 'indeed/feedback.html', context=context)
+
+def job_listing(request):
+    if request.user:
+        if request.user.id:
+            user_profile = UserProfile.objects.filter(user=request.user)
+            if user_profile:
+                query = user_profile[0].search_query
+                location = user_profile[0].search_location
+                return HttpResponseRedirect("/search_indeed/?query=%s&location=%s" %(query, location))
+    return HttpResponseRedirect("/accounts/profile")
 
 def search(request):
     location = request.GET.get('location')
@@ -70,5 +81,13 @@ def create_search_history(request, query):
         search_history = QuerySearchHistory(user_id=user_id, trade=trade[0])
         search_history.save()
 
-        
+        if request.user:
+            location = request.GET.get('location')
+            user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
+            user_profile.search_query = query
+            user_profile.search_location = location
+            user_profile.save()
+
+
 

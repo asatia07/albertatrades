@@ -212,3 +212,5 @@ LOGGING = {
         },
     }
 }
+
+LOGIN_REDIRECT_URL = '/profiles/home'
