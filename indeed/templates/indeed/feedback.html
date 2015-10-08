@@ -5,34 +5,9 @@
 {% block head_title %}{% trans "Feedback" %}{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="row col-lg-6" style="margin: auto; float: none;">
-      <form role="form" action="{% url 'feedback' %}" method="post" >
-        <h3 style="margin-bottom: 25px;">Feedback Form</h3>
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="InputName">Your Name</label>
-          <input type="text" class="form-control" name="name" id="InputName" placeholder="Enter Name" value="{% if form.name.value %}{{form.name.value}}{% else %}{% endif %}">
-          {% if not form.is_valid and form.errors.name.as_text %}
-            <div class="alert alert-danger">{{form.errors.name.as_text}}</div>
-          {% endif %}
-        </div>
-        <div class="form-group">
-          <label for="InputEmail">Your Email</label>
-          <input type="email" class="form-control" id="InputEmail" name="email" placeholder="Enter Email" value="{% if form.email.value %}{{form.email.value}}{% else %}{% endif %}">
-          {% if not form.is_valid and form.errors.email.as_text %}
-            <div class="alert alert-danger">{{form.errors.email.as_text}}</div>
-          {% endif %}
-        </div>
-        <div class="form-group">
-          <label for="InputMessage">Feedback</label>
-          <textarea name="feedback" id="InputMessage" class="form-control" rows="5">{% if form.feedback.value %}{{form.feedback.value}}{% else %}{% endif %}</textarea>
-          {% if not form.is_valid and form.errors.feedback.as_text %}
-            <div class="alert alert-danger">{{form.errors.feedback.as_text}}</div>
-          {% endif %}
-        </div>
-        <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
-      </form>
-    </div>
+  <div class="container" style="width: 770px;">
+    
+	<iframe src="https://docs.google.com/forms/d/1ZvRWPJWbaP5sSMLy4KZZHHRpXYQ_qEt5fk0T2MQYK3c/viewform?embedded=true" width="760" height="890" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+
   </div>
 {% endblock %}
