@@ -21,7 +21,7 @@
         {% endfor %}
         <hr />
         <h4> Or Login with <strong>AlbertaTrades Account  :</strong></h4>
-        <br />
+        <hr />
         {% if not form.is_valid and form.non_field_errors.as_text %}
           <div class="alert alert-danger">{{form.non_field_errors.as_text}}</div>
         {% endif %}

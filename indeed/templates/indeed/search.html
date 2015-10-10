@@ -5,49 +5,42 @@
 {% block head_title %}{% trans "Results" %}{% endblock %}
 
 {% block content %}
-    <div class="container">
-
-        <div class="row">
-          <div class="col-md-12">
-            {% if jobs %}
-
-                <table id="job_listing" class="display" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Location</th>
-                            <th>Company</th1>
-                            <th>Age</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Title</th>
-                            <th>Location</th>
-                            <th>Company</th1>
-                            <th>Age</th>
-                        </tr>
-                    </tfoot>  
-             
-                    <tbody>
-                        {% for job in jobs %}
-                           <tr>
-                                <td><a href="{{job.url}}"  target="_blank">{{ job.title }}</a></td>
-                                <td>{%if job.city%} {{job.city}} {%else%} {{job.formattedLocationFull}}{%endif%}</td>
-                                <td>{{ job.company }}</td>
-                                <td>{{ job.formattedRelativeTime }}</td>
-                           </tr>
-                        {%endfor%}
-                    </tbody>
-                </table>
-
-            {% elif query or location %}
-                <h3><div class="text-center">No result found!</div></h3>
-            {% endif %}
-          </div>
-        </div>
-
-
-
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {% if jobs %}
+          <table id="job_listing" class="display" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Location</th>
+                <th>Company</th1>
+                <th>Age</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Title</th>
+                <th>Location</th>
+                <th>Company</th1>
+                <th>Age</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              {% for job in jobs %}
+               <tr>
+                  <td><a href="{{job.url}}"  target="_blank">{{ job.title }}</a></td>
+                  <td>{%if job.city%} {{job.city}} {%else%} {{job.formattedLocationFull}}{%endif%}</td>
+                  <td>{{ job.company }}</td>
+                  <td>{{ job.formattedRelativeTime }}</td>
+               </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% elif query or location %}
+          <h3><div class="text-center">No result found!</div></h3>
+        {% endif %}
       </div>
+    </div>
+  </div>
 {% endblock %}

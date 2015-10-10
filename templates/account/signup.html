@@ -15,7 +15,7 @@
     <div class="row">
       <div class="col-md-6">
         <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-        <br /><hr />
+        <hr />
         <form class="signup" method="POST" action="{% url 'account_signup' %}">
           {% csrf_token %}
           <label for="id_username">Username:</label>
@@ -49,7 +49,7 @@
           <button class="btn btn-info" type="submit"><span class="glyphicon glyphicon-user"></span> &nbsp;{% trans "Sign Up" %} &raquo;</button>
         </form>
       </div>
-    <div class="col-md-6">
+      <div class="col-md-6">
       </div>
     </div>
   </div>
