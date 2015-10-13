@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 from lib import indeed_api
-from models import Trade, UserProfile
-from models import QuerySearchHistory
+from indeed.models import Trade, UserProfile
+from indeed.models import QuerySearchHistory
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.contrib import messages
@@ -74,20 +74,19 @@ def search(request):
     return render(request, 'indeed/search.html', context=context)
 
 def create_search_history(request, query):
-
-    trade = Trade.objects.filter(name=query)
+    location = request.GET.get('location')
+    trade, created = Trade.objects.get_or_create(name=query)
     if trade:
+        if created:
+            trade.query = query
+            trade.location = location
+            trade.save()
         user_id = request.user.id if (request.user and request.user.id)  else 0
-        search_history = QuerySearchHistory(user_id=user_id, trade=trade[0])
+        search_history = QuerySearchHistory(user_id=user_id, trade=trade)
         search_history.save()
 
-        if request.user:
-            location = request.GET.get('location')
+        if request.user.is_authenticated():
             user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-
             user_profile.search_query = query
             user_profile.search_location = location
             user_profile.save()
-
-
-

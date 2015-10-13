@@ -11,4 +11,11 @@ jQuery(document).ready(function() {
     "order": [[ 3, "asc" ]],
     "columnDefs": [ { "type": "age-custom-sort", targets: 3 }]
   });
+
+  $('#query').keyup(function() {
+    $('#query').attr('value', $(this).val());
+  });
+  $('#location').keyup(function() {
+    $('#location').attr('value', $(this).val());
+  });
 });
