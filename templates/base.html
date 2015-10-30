@@ -3,6 +3,7 @@
   <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
+    <meta name="keywords" content="alberta, apprentice, apprenticeship, industry, journeyperson, occupations, trades, tradesperson, training">
     <meta name="author" content="" />
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'indeed/css/bootstrap.css' %}">
@@ -111,21 +112,22 @@
         <div class="container footer">
           <div class="row">
             <div class="col-md-12">
-              <a href="http://vanbit.io/" target="_blank">vanbit.io</a>
-              |		
+              		
+              <a href="{% url 'about' %}">About</a>
+              |
+              <a href="{% url 'feedback' %}">Feedback</a>
+              |
+              <a href="{% url 'resources' %}">Resources</a>
+              |
               <span id='indeed_at'>
                 <a href="http://www.indeed.com/" title="Job Search" target="_blank">
                   jobs by 
                   <img src="http://www.indeed.com/p/jobsearch.gif" style="border: 0; vertical-align: middle;" alt="Indeed job search">
                 </a>
               </span>
-              |
-              <a href="{% url 'feedback' %}">Feedback</a>
-              |
-              <a href="{% url 'about' %}">About</a>
-              |
-              <a href="{% url 'resources' %}">Resources</a>
             </div>
+
+            Brought to you by <a href="http://vanbit.io/" target="_blank">Vanbit.io</a>
           </div>
         </div>
       </footer>
