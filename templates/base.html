@@ -32,61 +32,41 @@
       <header>
         <div class="container">
           <div class="row">
-            <div class="col-md-2">
-              <a href="{% url 'home' %}" style="line-height: 60px; color: rgb(0, 0, 0); font-size: 25px;">AlbertaTrades.com</a>
+            <div class="col-md-3">
+              <a href="{% url 'home' %}" class="logo">Alberta Trades</a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
             </div>
             <div class="col-md-6">
-              <form action="{%url 'search'%}" class="form-inline" role="form" style="float: left; line-height: 54px;">
+              <form action="{%url 'search'%}" class="search-form form-inline" role="form">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="query" name="query" placeholder="Trade" value="{% if query %}{{query}}{%endif%}">
+                    <input type="text" class="form-control" id="query" name="query" placeholder="Job" value="{% if query %}{{query}}{%endif%}">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="location" name="location" placeholder="Location" value="{% if location %}{{location}}{%endif%}">
                 </div>
-                <button type="submit" class="btn btn-default"> Search </button>
+                <button type="submit" class="btn-round-border btn btn-default search-btn"> Search </button>
               </form>
               {% if user.is_authenticated %}
                 <div class="user-settings-wrapper">
                   <ul class="nav">
                     <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
-                      </a>
+                      <a class="btn-round-border dropdown-toggle btn btn-default" data-toggle="dropdown" href="#" aria-expanded="false"> Settings </a>
                       <div class="dropdown-menu dropdown-settings">
                         <div style="color: rgb(51, 51, 51);">Welcome, {{user.first_name}}</div>
                         <hr style="border-color: rgb(51, 51, 51);">
-                        <a href="/accounts/profile/" class="btn btn-info btn-sm">Account Profile</a>&nbsp;<a href="{% url 'account_logout' %}" class="btn btn-danger btn-sm">Logout</a>
+                        <a href="{% url 'profile' %}" class="btn-round-border btn btn-info btn-sm">Account Profile</a>&nbsp;<a href="{% url 'account_logout' %}" class="btn-round-border btn btn-danger btn-sm">Logout</a>
                       </div>
                     </li>
                   </ul>
                 </div>
               {% else %}
-                <!-- a href="{% url 'account_signup' %}">
-                  <i class="fa fa-user-plus login-icon" ></i>
-                </a -->
+				<div class="col-md-2 login"><a href="{% url 'account_login' %}" class="btn-round-border btn btn-default">Login</a></div>
               {% endif %}
             </div>
           </div>
         </div>
       </header>
-      <section class="menu-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="navbar-collapse collapse ">
-                <ul id="menu-top" class="nav navbar-nav navbar-right">
-                  <li><a class="menu-top-active" href="/">Dashboard</a></li>
-                  {% if not user.is_authenticated %}
-                    <li><a href="{% url 'account_login' %}">Login</a></li>
-                  {% endif %}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       <!-- MENU SECTION END-->
       <div class="content-wrapper">
         {% block body %}

@@ -5,10 +5,12 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto); /* FREE GOOGLE FONT */
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'proxima-nova', sans-serif !important;
     line-height: 30px;
 }
-
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'proxima-nova', sans-serif;
+}
 .set-radius-zero {
     border-radius: 0px;
     -moz-border-radius: 0px;
@@ -84,16 +86,14 @@ header {
 
 /* USER SETTINGS DIV */
 .user-settings-wrapper .nav > li > a {
-    position: relative;
-    display: block;
-    padding: 15px 18px;
     border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    height: 60px;
-    width: 60px;
-    background-color: #A8A4A0;
-    color: #fff;
+    color: #000;
+    display: block;
+    height: 33px;
+    margin-top: 11px;
+    padding: 7px 10px 0;
+    position: relative;
+    width: auto;
 }
 
 .user-settings-wrapper {
@@ -107,13 +107,13 @@ header {
     }
 
     .user-settings-wrapper .dropdown-settings {
-        width: 200px;
+        width: 205px;
         padding: 10px;
     }
 
     .user-settings-wrapper .nav > li > a:hover,.user-settings-wrapper .nav > li > a:focus {
         text-decoration: none;
-        background-color: #625E5A!important;
+        background-color: #E6E6E6!important;
     }
 
     .user-settings-wrapper img {
@@ -124,16 +124,16 @@ header {
 
     .user-settings-wrapper .dropdown-menu {
         margin: 0px;
-        border-radius: 0px!important;
+        /*border-radius: 0px!important;
         -moz-border-radius: 0px!important;
-        -webkit-border-radius: 0px!important;
+        -webkit-border-radius: 0px!important;*/
     }
 
-    .user-settings-wrapper .btn {
+    /*.user-settings-wrapper .btn {
         border-radius: 0px!important;
         -moz-border-radius: 0px!important;
         -webkit-border-radius: 0px!important;
-    }
+    }*/
 
     .user-settings-wrapper .media-heading {
         padding-top: 10px;
@@ -319,3 +319,8 @@ table.dataTable tbody th, table.dataTable tbody td{
     padding: 2px 10px !important;
 }
 .footer{clear: both; margin: 0px auto; text-align: center;}
+.login{line-height: 54px; font-weight:bold;}
+.search-form{float: left; line-height: 54px;}
+.search-btn{margin-left: 15px;}
+.logo{line-height: 60px; color: rgb(0, 0, 0); font-size: 25px;}
+.btn-round-border{border-radius: 6px !important; -moz-border-radius: 6px!important; -webkit-border-radius: 6px!important;}

@@ -17,7 +17,7 @@
       <div class="col-md-6">
         {% get_providers as socialaccount_providers %}
         {% for provider in socialaccount_providers %}
-          <a title="{{provider.name}}" class="btn btn-social btn-{{provider.name|lower}} {{provider.id}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name|lower}}"></i>&nbsp;{{provider.name|capfirst}} Account</a>
+          <a title="{{provider.name}}" class="btn-round-border btn btn-social btn-{{provider.name|lower}} {{provider.id}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name|lower}}"></i>&nbsp;{{provider.name|capfirst}} Account</a>
         {% endfor %}
         <hr />
         <h4> Or Login with <strong>AlbertaTrades Account  :</strong></h4>
@@ -43,8 +43,8 @@
           {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
           {% endif %}
-          <a class="btn btn-info" href="{% url 'account_reset_password' %}"><span class="glyphicon glyphicon-lock"></span>{% trans "Forgot Password?" %}</a>
-          <button class="btn btn-info" type="submit"><span class="glyphicon glyphicon-user"></span> &nbsp;{% trans "Sign In" %}</button>
+          <a class="btn-round-border btn btn-info" href="{% url 'account_reset_password' %}"><span class="glyphicon glyphicon-lock"></span>{% trans "Forgot Password?" %}</a>
+          <button class="btn-round-border btn btn-info" type="submit"><span class="glyphicon glyphicon-user"></span> &nbsp;{% trans "Sign In" %}</button>
         </form>
       </div>
       <div class="col-md-6">
