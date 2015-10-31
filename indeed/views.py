@@ -88,7 +88,7 @@ def create_search_history(request, query):
             trade.location = location
             trade.save()
 
-        if request.user:
+        if request.user.is_authenticated():
             user_id = request.user.id
             prev_search_history = QuerySearchHistory.objects.filter(user_id=user_id).filter(location=location).filter(trade=trade).first()
             if prev_search_history:
@@ -98,7 +98,6 @@ def create_search_history(request, query):
                 prev_search_history = QuerySearchHistory(user_id=user_id, trade=trade, location=location)
             prev_search_history.save() 
 
-        if request.user.is_authenticated():
             user_profile, created = UserProfile.objects.get_or_create(user=request.user)
             user_profile.search_query = query
             user_profile.search_location = location
