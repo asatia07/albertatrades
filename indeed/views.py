@@ -53,10 +53,9 @@ def job_listing(request):
 def search(request):
     location = request.GET.get('location')
     query = request.GET.get('query')
-    create_search_history(request, query)
-
     jobs = []
     if query:
+        create_search_history(request, query)
         params = {'query': query, 'location': location}
         response = indeed_api.fetch_jobs(params)
         if response["error"]:

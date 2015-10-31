@@ -22,6 +22,7 @@ class UpdateTradesJob(CronJobBase):
             else:
                 trade_info = response["trade_info"]
                 job_counts = trade_info["totalResults"]
-                models.Trade.objects.filter(query=trade.query).update(job_counts=job_counts)
-                msg = "Job count updated for %s trade" %(trade.query)
-                logger.info(msg)
+                if trade.query:
+                    models.Trade.objects.filter(query=trade.query).update(job_counts=job_counts)
+                    msg = "Job count updated for %s trade" %(trade.query)
+                    logger.info(msg)
