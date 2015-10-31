@@ -2,17 +2,23 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
-from lib import indeed_api
+from lib import indeed_api, config
 from indeed.models import Trade, UserProfile
 from indeed.models import QuerySearchHistory
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.contrib import messages
 from .forms import FeedbackForm
+from datetime import datetime
 
 def home(request):
+    prev_search_history = None
+    if request.user:
+        if request.user.id:
+            prev_search_history = QuerySearchHistory.objects.filter(user_id=request.user.id).order_by('-modified')[:5]
+
     trades = Trade.objects.all()
-    return render(request, 'indeed/home.html', context={"trades":trades, "indeed_logo":True})
+    return render(request, 'indeed/home.html', context={"trades":trades, "prev_search_history":prev_search_history, "indeed_logo":True})
 
 def feedback(request):
     if request.method == 'GET':
@@ -74,16 +80,23 @@ def search(request):
     return render(request, 'indeed/search.html', context=context)
 
 def create_search_history(request, query):
-    location = request.GET.get('location')
+    location = request.GET.get('location') if request.GET.get('location') else config.INDEED_JOBS_DEFAULT_LOCATION
     trade, created = Trade.objects.get_or_create(name=query)
     if trade:
         if created:
             trade.query = query
             trade.location = location
             trade.save()
-        user_id = request.user.id if (request.user and request.user.id)  else 0
-        search_history = QuerySearchHistory(user_id=user_id, trade=trade)
-        search_history.save()
+
+        if request.user:
+            user_id = request.user.id
+            prev_search_history = QuerySearchHistory.objects.filter(user_id=user_id).filter(location=location).filter(trade=trade).first()
+            if prev_search_history:
+                prev_search_history.location = location
+                prev_search_history.trade = trade
+            else:
+                prev_search_history = QuerySearchHistory(user_id=user_id, trade=trade, location=location)
+            prev_search_history.save() 
 
         if request.user.is_authenticated():
             user_profile, created = UserProfile.objects.get_or_create(user=request.user)

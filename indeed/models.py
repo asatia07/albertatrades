@@ -30,6 +30,7 @@ class SearchHistory(models.Model):
 class QuerySearchHistory(models.Model):
     trade = models.ForeignKey(Trade)
     user_id = models.IntegerField(default=0)
+    location = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     def __unicode__(self):

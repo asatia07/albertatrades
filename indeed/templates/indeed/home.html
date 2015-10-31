@@ -6,6 +6,33 @@
 
 {% block content %}
   <div class="container">
+
+    <div class="row">
+      <div class="col-md-9" style="margin: auto; float: none;">
+        <table class="table table-striped table-bordered table-hover display" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th colspan="2"><div class='text-center'>Previous Searches</div></th>
+              </tr>
+              <tr>
+                <th>Job</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for history in prev_search_history %}
+                <tr>
+                  <td><a href="/search_indeed/?query={{history.trade.query}}&location={{history.location}}"> {{history.trade.name}}</a></td>
+                  <td>{{history.location}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+
     <div class="row">
       <div class="col-md-9" style="margin: auto; float: none;">
         <table class="table table-striped table-bordered table-hover display" id="trades" cellspacing="0" width="100%">

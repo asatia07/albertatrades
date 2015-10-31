@@ -17,7 +17,7 @@ class TradeAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'job_counts', 'modified']
 
 class QuerySearchHistoryAdmin(admin.ModelAdmin):
-    list_display = ['trade', 'user_id', 'created']
+    list_display = ['trade', 'user_id', 'location', 'created', 'modified']
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
