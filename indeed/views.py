@@ -10,14 +10,15 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from .forms import FeedbackForm
 from datetime import datetime
+from django.db.models import Q
 
 def home(request):
     prev_search_history = None
     if request.user:
         if request.user.id:
-            prev_search_history = QuerySearchHistory.objects.filter(user_id=request.user.id).order_by('-modified')[:5]
+            prev_search_history = QuerySearchHistory.objects.filter(user_id=request.user.id).exclude((Q(trade__name__isnull=True) | Q(trade__name__exact='')) & (Q(trade__query__isnull=True) | Q(trade__query__exact=''))).order_by('-modified')[:5]
 
-    trades = Trade.objects.all()
+    trades = Trade.objects.exclude((Q(name__isnull=True) | Q(name__exact='')) & (Q(query__isnull=True) | Q(query__exact='')))
     return render(request, 'indeed/home.html', context={"trades":trades, "prev_search_history":prev_search_history, "indeed_logo":True})
 
 def feedback(request):
@@ -54,7 +55,7 @@ def search(request):
     location = request.GET.get('location')
     query = request.GET.get('query')
     jobs = []
-    if query and (not query.isspace()):
+    if query:
         create_search_history(request, query)
         params = {'query': query, 'location': location}
         response = indeed_api.fetch_jobs(params)
