@@ -54,7 +54,7 @@ def search(request):
     location = request.GET.get('location')
     query = request.GET.get('query')
     jobs = []
-    if query:
+    if query and (not query.isspace()):
         create_search_history(request, query)
         params = {'query': query, 'location': location}
         response = indeed_api.fetch_jobs(params)

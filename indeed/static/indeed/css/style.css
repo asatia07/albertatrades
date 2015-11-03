@@ -332,5 +332,5 @@ table.dataTable tbody th, table.dataTable tbody td{
 .login{line-height: 54px; font-weight:bold;}
 .search-form{float: left; line-height: 54px;}
 .search-btn{margin-left: 15px;}
-.logo{line-height: 60px; color: rgb(0, 0, 0); font-size: 25px;}
+.logo{line-height: 60px; color: rgb(0, 0, 0); font-size: 25px; font-weight: 600;}
 .btn-round-border{border-radius: 6px !important; -moz-border-radius: 6px!important; -webkit-border-radius: 6px!important;}
