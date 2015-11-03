@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 from lib import indeed_api, config
 from indeed.models import Trade, UserProfile
-from indeed.models import QuerySearchHistory
+from indeed.models import UserSearchHistory
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.contrib import messages
@@ -16,10 +16,10 @@ def home(request):
     prev_search_history = None
     if request.user:
         if request.user.id:
-            prev_search_history = QuerySearchHistory.objects.filter(user_id=request.user.id).exclude((Q(trade__name__isnull=True) | Q(trade__name__exact='')) & (Q(trade__query__isnull=True) | Q(trade__query__exact=''))).order_by('-modified')[:5]
+            prev_search_history = UserSearchHistory.objects.filter(user=request.user).order_by('-modified')[:5]
 
     trades = Trade.objects.exclude((Q(name__isnull=True) | Q(name__exact='')) & (Q(query__isnull=True) | Q(query__exact='')))
-    return render(request, 'indeed/home.html', context={"trades":trades, "prev_search_history":prev_search_history, "indeed_logo":True})
+    return render(request, 'indeed/home.html', context={"trades":trades, "prev_search_history":prev_search_history})
 
 def feedback(request):
     if request.method == 'GET':
@@ -52,11 +52,13 @@ def job_listing(request):
     return HttpResponseRedirect("/accounts/profile")
 
 def search(request):
-    location = request.GET.get('location')
-    query = request.GET.get('query')
+    query = request.GET.get('query',"").strip()
+    location = request.GET.get('location',"").strip()
     jobs = []
-    if query and (not query.isspace()):
-        create_search_history(request, query)
+    if query:
+        if not location:
+            location = config.INDEED_JOBS_DEFAULT_LOCATION
+        create_search_history(request, query, location)
         params = {'query': query, 'location': location}
         response = indeed_api.fetch_jobs(params)
         if response["error"]:
@@ -76,29 +78,20 @@ def search(request):
                                     "formattedRelativeTime": row["formattedRelativeTime"],
                                 }
                             )
-    context = {"jobs":jobs, "query":query, "location":location, "indeed_logo":True}
+    context = {"jobs":jobs, "query":query, "location":location}
     return render(request, 'indeed/search.html', context=context)
 
-def create_search_history(request, query):
-    location = request.GET.get('location') if request.GET.get('location') else config.INDEED_JOBS_DEFAULT_LOCATION
-    trade, created = Trade.objects.get_or_create(name=query)
-    if trade:
-        if created:
-            trade.query = query
-            trade.location = location
-            trade.save()
+def create_search_history(request, query, location):
+    if request.user.is_authenticated():
+        prev_search_history = UserSearchHistory.objects.filter(user=request.user).filter(location=location).filter(query=query).first()
+        if prev_search_history:
+            prev_search_history.query = query
+            prev_search_history.location = location
+        else:
+            prev_search_history = UserSearchHistory(user=request.user, query=query, location=location)
+        prev_search_history.save() 
 
-        if request.user.is_authenticated():
-            user_id = request.user.id
-            prev_search_history = QuerySearchHistory.objects.filter(user_id=user_id).filter(location=location).filter(trade=trade).first()
-            if prev_search_history:
-                prev_search_history.location = location
-                prev_search_history.trade = trade
-            else:
-                prev_search_history = QuerySearchHistory(user_id=user_id, trade=trade, location=location)
-            prev_search_history.save() 
-
-            user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-            user_profile.search_query = query
-            user_profile.search_location = location
-            user_profile.save()
+        user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+        user_profile.search_query = query
+        user_profile.search_location = location
+        user_profile.save()

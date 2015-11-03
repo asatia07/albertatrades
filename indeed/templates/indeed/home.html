@@ -24,7 +24,7 @@
             <tbody>
               {% for history in prev_search_history %}
                 <tr>
-                  <td><a href="/search_indeed/?query={{history.trade.query}}&location={{history.location}}"> {{history.trade.name}}</a></td>
+                  <td><a href="/search_indeed/?query={{history.query}}&location={{history.location}}"> {{history.query}}</a></td>
                   <td>{{history.location}}</td>
                 </tr>
               {% endfor %}
