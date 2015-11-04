@@ -325,7 +325,7 @@ a:active {
     background-color: #c32f10;
 }
 
-table.dataTable tbody th, table.dataTable tbody td{
+table tbody th, table tbody td{
     padding: 2px 10px !important;
 }
 .footer{clear: both; margin: 0px auto; text-align: center;}
